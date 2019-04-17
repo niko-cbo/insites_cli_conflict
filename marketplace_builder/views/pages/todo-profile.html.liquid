@@ -1,0 +1,62 @@
+---
+slug: todo/profile
+layout_name: todo
+authorization_policies:
+  - only_allow_if_logged_in
+---
+{%- execute_query 'current_user', result_name: 'g' -%}
+<div class="form-center">
+    <h1 class="noMarBot">{{ g.current_user.first_name }}'s' Todo List</h1>
+    {% include_form 'user_sign_out' %}
+    {% include_form 'todo_add', current_user_id: g.current_user.id %}
+
+    {%- execute_query 'get_current_user_todos', result_name: 'userTodos' current_user: g.current_user.id -%}
+
+    <ul>
+    {% for item in userTodos.customizations.results %}
+
+        {% if item.properties.is_done == true %}
+            <li class="done">
+        {% else %}
+            <li>
+        {% endif %}
+                <button class="link-style"
+                    onclick="updateItem({{item.id}}, this)">
+                    {{ item.properties.task }}
+                </button>
+            </li>
+    {% endfor %}
+    </ul>
+</div>
+<script>
+    var token = document.querySelector('input[name="authenticity_token"]').value;
+    function updateItem(id, self){
+        
+        var isDone = self.parentElement.classList.contains('done') ? "false" : "true";
+        var payload = {
+            form_configuration_name: "todo_update",
+            form: {
+                properties: {
+                    is_done: isDone
+                }
+            }
+        }
+        var parsedPayload = JSON.stringify(payload);
+        var xhr = new XMLHttpRequest();
+        xhr.open("PUT", '/api/customizations/' + id, true);
+        
+        xhr.setRequestHeader("X-CSRF-Token", token);
+        xhr.setRequestHeader("X-Requested-With","XMLHttpRequest");
+        xhr.setRequestHeader('Accept','application/json');
+        xhr.setRequestHeader('Content-type','application/json');
+
+        xhr.onload = function(){
+            if (xhr.readyState == 4 && (xhr.status == "200" || xhr.status == "204")) {
+                isDone === "true"
+                    ? self.parentElement.classList.add('done')
+                    : self.parentElement.classList.remove('done');
+            }
+        }
+        xhr.send(parsedPayload);
+    }
+</script>

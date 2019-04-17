@@ -1,0 +1,16 @@
+query user_todos($current_user: String!){
+  customizations (
+    page: 1,
+    per_page: 1000
+    name: "todo_item"
+    sort: [{name: "created_at", order: "desc"}]
+    properties: [
+      {name: "user_id", value: $current_user}
+    ]
+  ) {
+    results {
+      id
+      properties
+    }
+  }
+}

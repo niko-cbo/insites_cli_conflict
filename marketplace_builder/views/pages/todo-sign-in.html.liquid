@@ -1,0 +1,15 @@
+---
+slug: todo/sign-in
+layout_name: todo
+---
+
+<div class="form-center">
+
+    {% if flash.notice != blank %}
+        <p>{{ flash.notice }}</p>
+    {% endif %}
+    
+    {% include_form 'user_sign_in' %}
+    <a href="/todo/sign-up" class="left">Sign Up</a>
+    <a href="/todo/recover-password" class="right">Recover Password</a>
+</div>

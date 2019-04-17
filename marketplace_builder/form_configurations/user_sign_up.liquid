@@ -1,0 +1,61 @@
+---
+name: user_sign_up
+resource: User
+resource_owner: anyone
+redirect_to: /todo/profile
+fields:
+  email:
+    validation: { presence: true }
+  password:
+  first_name:
+    validation: { presence: true }
+  last_name:
+    validation: { presence: true }
+
+callback_actions: "{% execute_query 'user_session_create', email: @form.email, password: @form.password %}"
+---
+<h1>Sign Up</h1>
+{% form %}
+<div>
+  <label for="first_name">First Name
+    <input name="{{ form_builder.fields.first_name.name }}" value="{{ form_builder.fields.first_name.value }}" id="first_name" type="text">
+    {% if form_builder.errors.first_name %}
+        <p>{{ form_builder.errors.first_name }}</p>
+    {% endif %}
+  </label>
+</div>
+
+<div>
+  <label for="last_name">Last Name
+    <input name="{{ form_builder.fields.last_name.name }}" value="{{ form_builder.fields.last_name.value }}" id="last_name" type="text">
+    {% if form_builder.errors.last_name %}
+        <p>{{ form_builder.errors.last_name }}</p>
+    {% endif %}
+  </label>
+</div>
+
+<div>
+  <label for="email">Email
+    <input name="{{ form_builder.fields.email.name }}" value="{{ form_builder.fields.email.value }}" id="email" type="email">
+    {% if form_builder.errors.email %}
+        <p>{{ form_builder.errors.email }}</p>
+    {% endif %}
+  </label>
+</div>
+
+<div>
+  <label for="password">Password
+    <input name="{{ form_builder.fields.password.name }}" id="password" type="password">
+    {% if form_builder.errors.password %}
+        <p>{{ form_builder.errors.password }}</p>
+    {% endif %}
+  </label>
+</div>
+
+<div>
+  <button type="submit">Sign Up</button>
+  <a href="/todo/sign-in">
+    <button type="button" class="cancel-button">Cancel</button>
+  </a>
+</div>
+{% endform %}

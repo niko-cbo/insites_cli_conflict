@@ -1,0 +1,30 @@
+---
+name: todo_add
+resource: todo_item
+resource_owner: anyone
+redirect_to: /todo/profile
+fields:
+  properties:
+    task:
+      validation:
+        presence: true
+    is_done:
+    user_id:
+---
+{% form %}
+<input name="{{ form_builder.fields.properties.is_done.name }}" value="false" id="is_done" type="hidden">
+<input name="{{ form_builder.fields.properties.user_id.name }}" value="{{ current_user_id }}" id="user_id" type="hidden">
+
+<div>
+  <label for="task" class="custom-field">
+    <p>Todo</p>
+    <input name="{{ form_builder.fields.properties.task.name }}"
+      value="{{ form_builder.fields.properties.task.value }}"
+      placeholder="Enter Todo Item here" id="task" type="task">
+    <button id="addButton" type="submit">Add</button>
+    {% if form_builder.errors.task %}
+        <p>{{ form_builder.errors.task }}</p>
+    {% endif %}
+  </label>
+</div>
+{% endform %}

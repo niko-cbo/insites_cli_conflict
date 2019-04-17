@@ -1,0 +1,32 @@
+---
+name: user_sign_in
+resource: Session
+redirect_to: todo/profile
+fields:
+  email:
+  password:
+---
+<h1>Sign In</h1>
+{% form %}
+<div>
+  <label for="email">Email
+    <input name="{{ form_builder.fields.email.name }}" value="{{ form_builder.fields.email.value }}" id="email" type="email">
+    {% if form_builder.errors.email %}
+        <p>{{ form_builder.errors.email }}</p>
+    {% endif %}
+  </label>
+</div>
+
+<div>
+  <label for="password">Password
+    <input name="{{ form_builder.fields.password.name }}" id="password" type="password">
+    {% if form_builder.errors.password %}
+        <p>{{ form_builder.errors.password }}</p>
+    {% endif %}
+  </label>
+</div>
+
+<div>
+  <button type="submit">Sign In</button>
+</div>
+{% endform %}

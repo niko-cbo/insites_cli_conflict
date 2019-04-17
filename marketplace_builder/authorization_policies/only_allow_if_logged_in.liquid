@@ -1,0 +1,9 @@
+---
+name: only_allow_if_logged_in
+redirect_to: 403
+flash_alert: Please login to continue.
+---
+{%- execute_query 'current_user', result_name: 'g' -%}
+{% if g.current_user %}
+true
+{% endif %}

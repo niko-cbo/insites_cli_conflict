@@ -1,0 +1,8 @@
+name: todo_item
+properties:
+- name: task
+  type: string
+- name: is_done
+  type: boolean
+- name: user_id
+  type: string

@@ -1,0 +1,9 @@
+---
+name: user_sign_out
+resource: Session
+redirect_to: /todo/sign-in
+---
+
+{% form method: 'delete' %}
+  <button id="sign_out" type="submit" class="link-style">Sign Out</button>
+{% endform %}
