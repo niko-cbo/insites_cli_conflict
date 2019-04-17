@@ -1,0 +1,46 @@
+{
+    "repo_url": "git@github.com:niko-cbo/insites_cli_conflict.git",
+    "email": "niko@cbo.me",
+    "app_version": "1.0.0",
+    "environments": {
+        "staging": {
+            "site_url": "https://niko.staging.oregon.platform-os.com/",
+            "purpose": "stg"
+        }
+    },
+    "app_dir": "/Users/completebusinessonline/Documents/Platform OS/proj1",
+    "lint_config": {
+        "js": {
+            "config": "./.insites/lint_rules/eslint_rules.json",
+            "target": [
+                "/Users/completebusinessonline/Documents/Platform OS/proj1/marketplace_builder/assets/scripts/app"
+            ]
+        },
+        "css": {
+            "config": "./.insites/lint_rules/csslint_rules.json",
+            "target": [
+                "/Users/completebusinessonline/Documents/Platform OS/proj1/marketplace_builder/assets/styles/app"
+            ]
+        },
+        "ts": {
+            "config": "./.insites/lint_rules/tslint.json",
+            "target": [
+                "./src/typescript"
+            ]
+        },
+        "scss": {
+            "config": "./.insites/lint_rules/scsslint_rules.json",
+            "target": [
+                "./src/stylesheets"
+            ]
+        }
+    },
+    "compiler_config": {
+        "node_sass": {
+            "build_css_file_name": "build.css",
+            "scss_directory_or_file_to_compile": "/src/stylesheets/app.scss",
+            "output_directory": "/src/css_dist",
+            "run_scss_lint_before_compile": true
+        }
+    }
+}
